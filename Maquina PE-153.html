@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adaptación móvil -->
+  <title>Maquina PE-153</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f8ff;
+      text-align: center;
+    }
+
+    textarea {
+      width: 80%;
+      height: 100px;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #009acd;
+    }
+
+    .salida {
+      margin-top: 20px;
+      font-style: italic;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Maquina PE-153</h2>
+
+  <textarea id="editor"></textarea><br>
+  <button onclick="guardarTexto()">Guardar</button>
+  <button onclick="editarTexto()">Editar</button>
+
+  <div class="salida" id="resultado">
+    Texto guardado: <span id="contenidoGuardado">—</span>
+  </div>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const contenidoGuardado = document.getElementById("contenidoGuardado");
+
+    function mostrarTextoGuardado() {
+      const texto = localStorage.getItem("Maquina PE-153");
+      if (texto && texto.trim() !== "") {
+        contenidoGuardado.textContent = texto;
+        editor.value = texto;
+        editor.disabled = true;
+      } else {
+        contenidoGuardado.textContent = "Sin texto registrado.";
+        editor.value = "";
+        editor.disabled = false;
+      }
+    }
+
+    function guardarTexto() {
+      const texto = editor.value.trim();
+      if (texto === "") {
+        alert("⚠️ No se puede guardar texto vacío.");
+        return;
+      }
+
+      localStorage.setItem("Maquina PE-153", texto);
+      contenidoGuardado.textContent = texto;
+      editor.disabled = true;
+    }
+
+    function editarTexto() {
+      editor.disabled = false;
+      editor.focus();
+    }
+
+    // Al cargar la página
+    mostrarTextoGuardado();
+  </script>
+
+</body>
+</html>

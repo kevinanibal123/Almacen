@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel privado - Administración</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #ffffff;
+    }
+
+    .bloque {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #00bfff;
+      border-radius: 8px;
+      box-shadow: 0 0 6px #ccc;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .texto {
+      font-style: italic;
+      color: #0c0303;
+      white-space: pre-wrap;
+      background-color: #e6f7ff;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Panel Privado de Supervisión</h1>
+
+  <div class="bloque">
+    <h2>Maquina PE-151</h2>
+    <div class="texto" id="Maquina PE-151">Cargando...</div>
+  </div>
+
+  <div class="bloque">
+    <h2>Maquina PE-152</h2>
+    <div class="texto" id="Maquina PE-152">Cargando...</div>
+  </div>
+
+  <div class="bloque">
+    <h2>Maquina PE-153</h2>
+    <div class="texto" id="Maquina PE-153">Cargando...</div>
+  </div>
+
+  <script>
+    function mostrarTexto(nombre) {
+      const dato = localStorage.getItem(nombre);
+
+      if (!dato || dato.trim() === "") {
+        return "Sin texto registrado.";
+      }
+
+      try {
+        const info = JSON.parse(dato);
+        const fecha = info.fecha || "—";
+        const turno = info.turno || "—";
+        const texto = info.texto || "—";
+        return `🗓️ Fecha: ${fecha}\n🔄 Turno: ${turno}\n📝 Texto: ${texto}`;
+      } catch (error) {
+        // Si no es JSON válido, mostramos como texto plano
+        return `📝 ${dato}`;
+      }
+    }
+
+    function cargarDatos() {
+      document.getElementById("Maquina PE-151").textContent = mostrarTexto("Maquina PE-151");
+      document.getElementById("Maquina PE-152").textContent = mostrarTexto("Maquina PE-152");
+      document.getElementById("Maquina PE-153").textContent = mostrarTexto("Maquina PE-153");
+    }
+
+    cargarDatos();
+  </script>
+
+</body>
+</html>

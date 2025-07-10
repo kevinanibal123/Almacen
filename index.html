@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla Principal</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #cbdae7;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 28px;
+      color: #333;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      max-width: 280px;
+      margin: 10px auto;
+      padding: 16px 24px;
+      font-size: 18px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #009acd;
+    }
+
+    .login {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    a {
+      width: 100%;
+      max-width: 280px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>GEOTEC</h1>
+
+  <a href="pagina2.html">
+    <button>Realizar pedidos</button>
+  </a>
+
+  <div class="login">
+    <button onclick="accesoAdmin()">Acceso administrador</button>
+  </div>
+
+  <script>
+    function accesoAdmin() {
+      const usuario = prompt("Ingrese su usuario:");
+      const clave = prompt("Ingrese su contraseña:");
+
+      if (usuario === "kevin" && clave === "kevin") {
+        alert("Acceso concedido ✅");
+        window.location.href = "panel-admin.html";
+      } else {
+        alert("Acceso denegado ❌");
+      }
+    }
+  </script>
+
+</body>
+</html>

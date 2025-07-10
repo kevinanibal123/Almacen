@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maquina PE-151</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f8ff;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    input, textarea, select {
+      width: 80%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #009acd;
+    }
+
+    .salida {
+      margin-top: 20px;
+      font-style: italic;
+      color: #333;
+      white-space: pre-wrap;
+      display: none; /* ← Oculta hasta que se guarde */
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Maquina PE-151</h2>
+
+  <input type="date" id="fecha"><br>
+  <select id="turno">
+    <option value="">Selecciona el turno</option>
+    <option value="Turno dia">Turno dia</option>
+    <option value="Turno noche">Turno noche</option>
+  </select><br>
+  <textarea id="editor" placeholder="Escribe aquí el detalle..."></textarea><br>
+
+  <button onclick="guardarTexto()">Guardar</button>
+  <button onclick="editarTexto()">Editar</button>
+
+  <div class="salida" id="resultado">
+    Texto guardado:<br><span id="contenidoGuardado">—</span>
+  </div>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const fecha = document.getElementById("fecha");
+    const turno = document.getElementById("turno");
+    const contenidoGuardado = document.getElementById("contenidoGuardado");
+    const resultado = document.getElementById("resultado");
+
+    function mostrarTextoGuardado() {
+      const datos = localStorage.getItem("Maquina PE-151");
+      if (datos) {
+        const { fecha: f, turno: t, texto } = JSON.parse(datos);
+        fecha.value = f;
+        turno.value = t;
+        editor.value = texto;
+        editor.disabled = true;
+        fecha.disabled = true;
+        turno.disabled = true;
+        resultado.style.display = "none"; // ← Oculto al iniciar
+      } else {
+        editor.value = "";
+        fecha.value = "";
+        turno.value = "";
+        editor.disabled = false;
+        fecha.disabled = false;
+        turno.disabled = false;
+        resultado.style.display = "none";
+      }
+    }
+
+    function guardarTexto() {
+      const texto = editor.value.trim();
+      const f = fecha.value;
+      const t = turno.value;
+
+      if (texto === "" || f === "" || t === "") {
+        alert("⚠️ Debes completar fecha, turno y texto.");
+        return;
+      }
+
+      const datos = { fecha: f, turno: t, texto };
+      localStorage.setItem("Maquina PE-151", JSON.stringify(datos));
+      contenidoGuardado.textContent = `Fecha: ${f}\nTurno: ${t}\nTexto: ${texto}`;
+      resultado.style.display = "block"; // ← Se muestra solo al guardar
+      editor.disabled = true;
+      fecha.disabled = true;
+      turno.disabled = true;
+    }
+
+    function editarTexto() {
+      editor.disabled = false;
+      fecha.disabled = false;
+      turno.disabled = false;
+      editor.focus();
+    }
+
+    mostrarTextoGuardado();
+  </script>
+
+</body>
+</html>
