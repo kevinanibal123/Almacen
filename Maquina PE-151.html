@@ -3,66 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maquina PE-151</title>
+  <title>Máquina PE-151</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 40px;
-      background-color: #f0f8ff;
+      background-color: #f9cd00;
       text-align: center;
+      color: #003366;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
 
     h2 {
       margin-bottom: 20px;
-      font-size: 24px;
+      font-size: 28px;
     }
 
     input, textarea, select {
       width: 80%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
-      font-size: 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #cccccc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background-color: white;
+      color: #003366;
+      border-left: 8px solid #003366   
+    }
+
+    select {
+      appearance: none;
+      background-color: #f3f5f7;
+      color: #003366(107, 24, 24);
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 2px 6px rgba(67, 188, 37, 0.2);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-left: 8px solid #003366 
+    }
+
+    select:hover {
+      background-color: #ffffff;
     }
 
     textarea {
       height: 100px;
       resize: vertical;
+      border-left: 8px solid #003366
     }
 
     button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #00bfff;
+      margin-top: 15px;
+      padding: 14px 24px;
+      background-color: #003366;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      font-size: 16px;
     }
 
     button:hover {
-      background-color: #009acd;
+      background-color: #002752;
     }
 
     .salida {
       margin-top: 20px;
       font-style: italic;
-      color: #333;
+      color: #003366;
       white-space: pre-wrap;
-      display: none; /* ← Oculta hasta que se guarde */
+      display: none;
+    }
+
+    /* ✅ Estilo para campos deshabilitados */
+    .disabled-style {
+      background-color: #f4efd9 !important;
+      color: #003366 !important;
+      border: 1px solid #003366 !important;
+      font-weight: bold;
+      cursor: not-allowed;
+      box-shadow: none !important;
+    }
+
+    select.disabled-style {
+      appearance: none;
+      background-image: none;
     }
   </style>
 </head>
 <body>
 
-  <h2>Maquina PE-151</h2>
+  <h2>Máquina PE-151</h2>
 
   <input type="date" id="fecha"><br>
   <select id="turno">
     <option value="">Selecciona el turno</option>
-    <option value="Turno dia">Turno dia</option>
+    <option value="Turno día">Turno día</option>
     <option value="Turno noche">Turno noche</option>
   </select><br>
   <textarea id="editor" placeholder="Escribe aquí el detalle..."></textarea><br>
@@ -71,7 +115,7 @@
   <button onclick="editarTexto()">Editar</button>
 
   <div class="salida" id="resultado">
-    Texto guardado:<br><span id="contenidoGuardado">—</span>
+    <span id="contenidoGuardado">—</span>
   </div>
 
   <script>
@@ -91,7 +135,9 @@
         editor.disabled = true;
         fecha.disabled = true;
         turno.disabled = true;
-        resultado.style.display = "none"; // ← Oculto al iniciar
+        fecha.classList.add("disabled-style");
+        turno.classList.add("disabled-style");
+        resultado.style.display = "none";
       } else {
         editor.value = "";
         fecha.value = "";
@@ -99,6 +145,8 @@
         editor.disabled = false;
         fecha.disabled = false;
         turno.disabled = false;
+        fecha.classList.remove("disabled-style");
+        turno.classList.remove("disabled-style");
         resultado.style.display = "none";
       }
     }
@@ -115,11 +163,13 @@
 
       const datos = { fecha: f, turno: t, texto };
       localStorage.setItem("Maquina PE-151", JSON.stringify(datos));
-      contenidoGuardado.textContent = `Fecha: ${f}\nTurno: ${t}\nTexto: ${texto}`;
-      resultado.style.display = "block"; // ← Se muestra solo al guardar
+      contenidoGuardado.textContent = " 📨✅ Mensaje enviado";
+      resultado.style.display = "block";
       editor.disabled = true;
       fecha.disabled = true;
       turno.disabled = true;
+      fecha.classList.add("disabled-style");
+      turno.classList.add("disabled-style");
     }
 
     function editarTexto() {
@@ -127,6 +177,8 @@
       fecha.disabled = false;
       turno.disabled = false;
       editor.focus();
+      fecha.classList.remove("disabled-style");
+      turno.classList.remove("disabled-style");
     }
 
     mostrarTextoGuardado();
