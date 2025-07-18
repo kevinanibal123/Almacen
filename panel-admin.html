@@ -8,49 +8,62 @@
     body {
       font-family: Arial, sans-serif;
       padding: 40px;
-      background-color: #ffffff;
+      background-color: #f9cd00; /* Fondo GEOTEC */
+      color: #003366;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 40px;
+      color: #003366;
     }
 
     .bloque {
       margin-bottom: 30px;
       padding: 20px;
-      background-color: #00bfff;
-      border-radius: 8px;
-      box-shadow: 0 0 6px #ccc;
+      background-color: #ffffff;
+      border-left: 8px solid #003366;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     h2 {
       margin-top: 0;
       font-size: 24px;
-      color: #fff;
+      color: #003366;
+      margin-bottom: 10px;
     }
 
     .texto {
       font-style: italic;
-      color: #0c0303;
+      color: #003366;
       white-space: pre-wrap;
-      background-color: #e6f7ff;
-      padding: 10px;
-      border-radius: 6px;
+      background-color: #ecf0f3;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
   </style>
 </head>
 <body>
 
-  <h1>Panel Privado de Supervisión</h1>
+  <h1>Pedidos Recibidos</h1>
 
   <div class="bloque">
-    <h2>Maquina PE-151</h2>
+    <h2>Máquina PE-151</h2>
     <div class="texto" id="Maquina PE-151">Cargando...</div>
   </div>
 
   <div class="bloque">
-    <h2>Maquina PE-152</h2>
+    <h2>Máquina PE-152</h2>
     <div class="texto" id="Maquina PE-152">Cargando...</div>
   </div>
 
   <div class="bloque">
-    <h2>Maquina PE-153</h2>
+    <h2>Máquina PE-153</h2>
     <div class="texto" id="Maquina PE-153">Cargando...</div>
   </div>
 
@@ -69,7 +82,6 @@
         const texto = info.texto || "—";
         return `🗓️ Fecha: ${fecha}\n🔄 Turno: ${turno}\n📝 Texto: ${texto}`;
       } catch (error) {
-        // Si no es JSON válido, mostramos como texto plano
         return `📝 ${dato}`;
       }
     }
